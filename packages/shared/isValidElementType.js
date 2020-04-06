@@ -23,6 +23,7 @@ import {
   REACT_SCOPE_TYPE,
   REACT_BLOCK_TYPE,
   REACT_SERVER_BLOCK_TYPE,
+  REACT_DIV_TO_SPAN_MODE_TYPE,
 } from 'shared/ReactSymbols';
 
 export default function isValidElementType(type: mixed) {
@@ -35,6 +36,7 @@ export default function isValidElementType(type: mixed) {
     type === REACT_STRICT_MODE_TYPE ||
     type === REACT_SUSPENSE_TYPE ||
     type === REACT_SUSPENSE_LIST_TYPE ||
+    type === REACT_DIV_TO_SPAN_MODE_TYPE ||
     (typeof type === 'object' &&
       type !== null &&
       (type.$$typeof === REACT_LAZY_TYPE ||

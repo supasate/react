@@ -107,6 +107,7 @@ import {
   ProfileMode,
   StrictMode,
   BlockingMode,
+  DivToSpanMode,
 } from './ReactTypeOfMode';
 import {
   shouldSetTextContent,
@@ -2998,6 +2999,12 @@ function beginWork(
   workInProgress: Fiber,
   renderExpirationTime: ExpirationTime,
 ): Fiber | null {
+  if (
+    workInProgress.type === 'div' &&
+    (workInProgress.mode & DivToSpanMode) === DivToSpanMode
+  ) {
+    workInProgress.type = 'span';
+  }
   const updateExpirationTime = workInProgress.expirationTime;
 
   if (__DEV__) {
