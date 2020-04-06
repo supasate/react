@@ -27,6 +27,7 @@ export let REACT_FUNDAMENTAL_TYPE = 0xead5;
 export let REACT_RESPONDER_TYPE = 0xead6;
 export let REACT_SCOPE_TYPE = 0xead7;
 export let REACT_DIV_TO_SPAN_MODE_TYPE = 0xeacf;
+export let REACT_SMOOSH_DIV_MODE_TYPE = 0xeaff;
 
 if (typeof Symbol === 'function' && Symbol.for) {
   const symbolFor = Symbol.for;
@@ -48,6 +49,7 @@ if (typeof Symbol === 'function' && Symbol.for) {
   REACT_RESPONDER_TYPE = symbolFor('react.responder');
   REACT_SCOPE_TYPE = symbolFor('react.scope');
   REACT_DIV_TO_SPAN_MODE_TYPE = symbolFor('react.div_to_span');
+  REACT_SMOOSH_DIV_MODE_TYPE = symbolFor('react.smoosh_div');
 }
 
 const MAYBE_ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;

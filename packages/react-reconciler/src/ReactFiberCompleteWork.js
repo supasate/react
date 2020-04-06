@@ -54,7 +54,7 @@ import {
   ScopeComponent,
   Block,
 } from './ReactWorkTags';
-import {NoMode, BlockingMode} from './ReactTypeOfMode';
+import {NoMode, BlockingMode, SmooshDivMode} from './ReactTypeOfMode';
 import {
   Ref,
   Update,
@@ -161,7 +161,10 @@ if (supportsMutation) {
     // children to find all the terminal nodes.
     let node = workInProgress.child;
     while (node !== null) {
-      if (node.tag === HostComponent || node.tag === HostText) {
+      if (node.tag === HostComponent && (
+        node.type !== 'div'
+        || (node.mode & SmooshDivMode) !== SmooshDivMode
+      ) || node.tag === HostText) {
         appendInitialChild(parent, node.stateNode);
       } else if (enableFundamentalAPI && node.tag === FundamentalComponent) {
         appendInitialChild(parent, node.stateNode.instance);
@@ -748,43 +751,45 @@ function completeWork(
             }
           }
         } else {
-          const instance = createInstance(
-            type,
-            newProps,
-            rootContainerInstance,
-            currentHostContext,
-            workInProgress,
-          );
-
-          appendAllChildren(instance, workInProgress, false, false);
-
-          // This needs to be set before we mount Flare event listeners
-          workInProgress.stateNode = instance;
-
-          if (enableDeprecatedFlareAPI) {
-            const listeners = newProps.DEPRECATED_flareListeners;
-            if (listeners != null) {
-              updateDeprecatedEventListeners(
-                listeners,
-                workInProgress,
-                rootContainerInstance,
-              );
-            }
-          }
-
-          // Certain renderers require commit-time effects for initial mount.
-          // (eg DOM renderer supports auto-focus for certain elements).
-          // Make sure such renderers get scheduled for later work.
-          if (
-            finalizeInitialChildren(
-              instance,
+          if (type !== 'div' || (workInProgress.mode & SmooshDivMode) !== SmooshDivMode) {
+            const instance = createInstance(
               type,
               newProps,
               rootContainerInstance,
               currentHostContext,
-            )
-          ) {
-            markUpdate(workInProgress);
+              workInProgress,
+            );
+
+            appendAllChildren(instance, workInProgress, false, false);
+
+            // This needs to be set before we mount Flare event listeners
+            workInProgress.stateNode = instance;
+
+            if (enableDeprecatedFlareAPI) {
+              const listeners = newProps.DEPRECATED_flareListeners;
+              if (listeners != null) {
+                updateDeprecatedEventListeners(
+                  listeners,
+                  workInProgress,
+                  rootContainerInstance,
+                );
+              }
+            }
+
+            // Certain renderers require commit-time effects for initial mount.
+            // (eg DOM renderer supports auto-focus for certain elements).
+            // Make sure such renderers get scheduled for later work.
+            if (
+              finalizeInitialChildren(
+                instance,
+                type,
+                newProps,
+                rootContainerInstance,
+                currentHostContext,
+              )
+            ) {
+              markUpdate(workInProgress);
+            }
           }
         }
 

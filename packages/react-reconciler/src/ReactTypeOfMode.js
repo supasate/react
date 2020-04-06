@@ -18,3 +18,4 @@ export const ConcurrentMode = 0b0100;
 export const ProfileMode = 0b1000;
 
 export const DivToSpanMode = 0b10000;
+export const SmooshDivMode = 0b100000;

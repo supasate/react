@@ -82,7 +82,7 @@ import {
   startLayoutEffectTimer,
   startPassiveEffectTimer,
 } from './ReactProfilerTimer';
-import {ProfileMode} from './ReactTypeOfMode';
+import {ProfileMode, SmooshDivMode} from './ReactTypeOfMode';
 import {commitUpdateQueue} from './ReactUpdateQueue';
 import {
   getPublicInstance,

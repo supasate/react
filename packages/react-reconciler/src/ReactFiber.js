@@ -77,6 +77,7 @@ import {
   StrictMode,
   BlockingMode,
   DivToSpanMode,
+  SmooshDivMode,
 } from './ReactTypeOfMode';
 import {
   REACT_FORWARD_REF_TYPE,
@@ -93,6 +94,7 @@ import {
   REACT_SCOPE_TYPE,
   REACT_BLOCK_TYPE,
   REACT_DIV_TO_SPAN_MODE_TYPE,
+  REACT_SMOOSH_DIV_MODE_TYPE,
 } from 'shared/ReactSymbols';
 
 let hasBadMapPolyfill;
@@ -644,6 +646,10 @@ export function createFiberFromTypeAndProps(
       case REACT_DIV_TO_SPAN_MODE_TYPE:
         fiberTag = Mode;
         mode  |= DivToSpanMode;
+        break;
+      case REACT_SMOOSH_DIV_MODE_TYPE:
+        fiberTag = Mode;
+        mode |= SmooshDivMode;
         break;
       case REACT_PROFILER_TYPE:
         return createFiberFromProfiler(pendingProps, mode, expirationTime, key);

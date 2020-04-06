@@ -15,6 +15,7 @@ import {
   REACT_SUSPENSE_TYPE,
   REACT_SUSPENSE_LIST_TYPE,
   REACT_DIV_TO_SPAN_MODE_TYPE,
+  REACT_SMOOSH_DIV_MODE_TYPE,
 } from 'shared/ReactSymbols';
 
 import {Component, PureComponent} from './ReactBaseClasses';
@@ -98,6 +99,7 @@ export {
   REACT_STRICT_MODE_TYPE as StrictMode,
   REACT_SUSPENSE_TYPE as Suspense,
   REACT_DIV_TO_SPAN_MODE_TYPE as DivToSpanMode,
+  REACT_SMOOSH_DIV_MODE_TYPE as SmooshDivMode,
   createElement,
   cloneElement,
   isValidElement,
